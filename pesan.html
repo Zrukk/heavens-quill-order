@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pesan Terjemahan – Heavensquill</title>
+<meta name="description" content="Formulir pemesanan jasa translate novel.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23101418'/%3E%3Cpath d='M50 14 86 50 50 86 14 50Z' fill='none' stroke='%235aa9e0' stroke-width='6'/%3E%3Cpath d='M50 32 68 50 50 68 32 50Z' fill='none' stroke='%235aa9e0' stroke-width='5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main><div class="wrap page">
+<h1>Pesan terjemahan</h1>
+<p class="lead">Isi formulir, lalu kirim lewat WhatsApp atau email. Isian tersimpan otomatis di perangkatmu kalau halaman tertutup.</p>
+<form id="order">
+<label>Nama<input name="nama" required autocomplete="name"></label>
+<label>Judul novel<input name="judul" required></label>
+<div class="row"><label>Bahasa asal<select name="asal"><option>Korea</option><option>Jepang</option><option>Mandarin</option><option>Inggris</option><option>Lainnya</option></select></label>
+<label>Bahasa tujuan<select name="tujuan"><option>Indonesia</option><option>Inggris</option></select></label></div>
+<div class="row"><label>Perkiraan jumlah kata<input name="kata" type="number" min="1" inputmode="numeric"></label>
+<label>Paket<select name="paket"><option>Standar</option><option>Premium</option><option>Proyek panjang</option></select></label></div>
+<label>Tenggat yang diinginkan<input name="tenggat" type="date"></label>
+<label>Catatan<textarea name="catatan" rows="3" placeholder="Genre, gaya bahasa, tautan naskah"></textarea></label>
+<div class="btns" style="margin:0"><button class="btn main" type="submit">Kirim lewat WhatsApp</button><button class="btn" type="button" id="mailbtn">Kirim lewat email</button><button class="btn" type="button" id="copybtn">Salin pesan</button><button class="btn" type="button" id="clearbtn">Hapus isian</button></div>
+<p class="saved" id="saved" aria-live="polite"></p>
+</form></div></main>
+<script src="app.js"></script></body></html>
