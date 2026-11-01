@@ -70,3 +70,29 @@ if (form) {
   $('#copybtn').onclick = async () => { if (!form.reportValidity()) return; try { await navigator.clipboard.writeText(msg()); note.textContent = 'Pesan disalin.'; } catch(e){ note.textContent = 'Gagal menyalin, coba lewat WhatsApp.'; } };
   $('#clearbtn').onclick = () => { localStorage.removeItem(KEY); form.reset(); note.textContent = 'Draf dihapus.'; };
 }
+
+/* ===== UPGRADE: interaksi ===== */
+document.body.insertAdjacentHTML('afterbegin','<div class="progress" aria-hidden="true"></div>');
+const bar = $('.progress');
+const prog = () => { const h = document.documentElement; bar.style.width = (scrollY / Math.max(1, h.scrollHeight - innerHeight) * 100) + '%'; };
+addEventListener('scroll', prog, {passive:true}); prog();
+
+/* titik masuk kursor untuk efek diamond pada tombol; sorotan pada kartu */
+document.addEventListener('pointerover', e => {
+  const b = e.target.closest('.btn'); if (!b) return;
+  const r = b.getBoundingClientRect();
+  b.style.setProperty('--bx', (e.clientX - r.left) + 'px'); b.style.setProperty('--by', (e.clientY - r.top) + 'px');
+});
+document.addEventListener('pointermove', e => {
+  const c = e.target.closest('.card'); if (!c) return;
+  const r = c.getBoundingClientRect();
+  c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+});
+
+/* animasi muncul saat di-scroll */
+const items = document.querySelectorAll('main h1,main h2,.stats,.card,.sample,details,.steps li,.band,form,.result');
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), {threshold:.12});
+  items.forEach((el,i) => { el.classList.add('reveal'); el.style.transitionDelay = Math.min(i % 4, 3) * 80 + 'ms'; io.observe(el); });
+  }
+                                                                         
