@@ -14,9 +14,11 @@
 <body>
 <main><div class="wrap page">
 <h1>Pesan terjemahan</h1>
-<p class="lead">Isi formulir, lalu kirim lewat WhatsApp atau email. Isian tersimpan otomatis di perangkatmu kalau halaman tertutup.</p>
+<p class="lead">Isi formulir, lalu pesananmu tersimpan dan kamu diarahkan ke Discord kami untuk dilanjutkan. Isian tersimpan otomatis di perangkatmu kalau halaman tertutup.</p>
 <form id="order">
 <label>Nama<input name="nama" required autocomplete="name"></label>
+<label>Username Discord (agar kami bisa membalas)<input name="kontak" required autocomplete="off" placeholder="mis. namamu"></label>
+<label style="position:absolute;left:-999px" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
 <label>Judul novel<input name="judul" required></label>
 <div class="row"><label>Bahasa asal<select name="asal"><option>Korea</option><option>Jepang</option><option>Mandarin</option><option>Inggris</option><option>Lainnya</option></select></label>
 <label>Bahasa tujuan<select name="tujuan"><option>Indonesia</option><option>Inggris</option></select></label></div>
@@ -24,7 +26,8 @@
 <label>Paket<select name="paket"><option>Standar</option><option>Premium</option><option>Proyek panjang</option></select></label></div>
 <label>Tenggat yang diinginkan<input name="tenggat" type="date"></label>
 <label>Catatan<textarea name="catatan" rows="3" placeholder="Genre, gaya bahasa, tautan naskah"></textarea></label>
-<div class="btns" style="margin:0"><button class="btn main" type="submit">Kirim lewat WhatsApp</button><button class="btn" type="button" id="mailbtn">Kirim lewat email</button><button class="btn" type="button" id="copybtn">Salin pesan</button><button class="btn" type="button" id="clearbtn">Hapus isian</button></div>
+<div class="btns" style="margin:0"><button class="btn main" type="submit">Kirim pesanan &amp; buka Discord</button><button class="btn" type="button" id="mailbtn">Kirim lewat email</button><button class="btn" type="button" id="copybtn">Salin pesan</button><button class="btn" type="button" id="clearbtn">Hapus isian</button></div>
 <p class="saved" id="saved" aria-live="polite"></p>
-</form></div></main>
-<script src="app.js"></script></body></html>
+</form>
+<p class="note">Pastikan kamu sudah bergabung di <a data-discord target="_blank" rel="noopener" style="color:var(--blue)">server Discord kami</a> supaya kami bisa menghubungimu.</p></div></main>
+<script src="config.js"></script><script src="app.js"></script></body></html>
