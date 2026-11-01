@@ -87,3 +87,66 @@ footer a{color:var(--blue)}
 .top.show{display:block}
 .wa{position:fixed;left:1rem;bottom:1rem;background:var(--blue);color:#07121c;padding:.6rem 1rem;border-radius:99px;font:600 .9rem var(--sans);text-decoration:none}
 @media(min-width:721px){.wa{display:none}}
+
+/* ===== UPGRADE: tampilan premium ===== */
+::selection{background:var(--blue);color:#07121c}
+html{scrollbar-color:var(--deep) var(--bg)}
+body{background:
+ radial-gradient(900px 500px at 85% -5%,rgba(90,169,224,.16),transparent 60%),
+ radial-gradient(700px 500px at -10% 30%,rgba(23,80,122,.35),transparent 60%),var(--bg);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;
+ -webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 0,transparent 70%);mask-image:radial-gradient(ellipse at 50% 20%,#000 0,transparent 70%)}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:30;background:linear-gradient(90deg,var(--deep),var(--blue),#bfe3ff)}
+header{box-shadow:0 1px 0 rgba(90,169,224,.18),0 10px 30px rgba(0,0,0,.35)}
+.brand svg{filter:drop-shadow(0 0 8px rgba(90,169,224,.55))}
+h1 em,h2 em{font-style:italic;background:linear-gradient(100deg,#9fd3f5,var(--blue) 50%,#2f86c6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1{text-wrap:balance}
+.lead{font-size:1.08rem}
+
+/* logo berpendar */
+.mark{position:relative}
+.mark::before{content:"";position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(90,169,224,.35),transparent 65%);animation:pulse 5s ease-in-out infinite}
+.mark svg{position:relative;filter:drop-shadow(0 0 22px rgba(90,169,224,.45))}
+@keyframes pulse{50%{transform:scale(1.12);opacity:.65}}
+
+/* tombol: diamond wipe dari titik kursor masuk */
+.btn{position:relative;isolation:isolate;overflow:hidden;transition:color .35s,transform .2s,box-shadow .35s,letter-spacing .35s;letter-spacing:.01em;--bx:50%;--by:50%}
+.btn::before{content:"";position:absolute;z-index:-1;left:var(--bx);top:var(--by);width:0;height:0;background:var(--blue);transform:translate(-50%,-50%) rotate(45deg);transition:width .5s cubic-bezier(.2,.8,.2,1),height .5s cubic-bezier(.2,.8,.2,1)}
+.btn:hover::before,.btn:focus-visible::before{width:340%;aspect-ratio:1;height:auto}
+.btn:hover,.btn:focus-visible{color:#07121c;box-shadow:0 0 28px rgba(90,169,224,.5);letter-spacing:.04em}
+.btn:active{transform:scale(.97)}
+.btn.main{background:var(--blue)}
+.btn.main::before{background:#e6f4ff}
+.btn.main:hover{background:var(--blue)}
+.btn::after{content:"◆";position:absolute;right:.8rem;top:50%;font-size:.6rem;opacity:0;transform:translate(-8px,-50%);transition:.35s}
+.btn:hover::after{opacity:.8;transform:translate(0,-50%)}
+.btn:hover{padding-right:1.9rem}
+
+/* kartu: sorotan mengikuti kursor */
+.card,.sample,details{transition:transform .3s,border-color .3s,box-shadow .3s}
+.card{position:relative;overflow:hidden;--mx:50%;--my:0%;background:linear-gradient(160deg,rgba(255,255,255,.04),transparent 40%),var(--panel)}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx) var(--my),rgba(90,169,224,.22),transparent 70%)}
+.card:hover{transform:translateY(-5px);border-color:var(--blue);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 30px var(--glow)}
+.card:hover::before{opacity:1}
+.card.pick{box-shadow:0 0 0 1px var(--blue) inset,0 0 50px var(--glow)}
+details:hover,details[open]{border-color:var(--blue)}
+.sample:hover{border-color:var(--blue);box-shadow:0 0 40px var(--glow)}
+.result{box-shadow:0 0 36px var(--glow)}
+
+/* jaminan + ajakan */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:2.25rem}
+.stats div{background:rgba(19,27,36,.92);padding:1.25rem 1rem;text-align:center}
+.stats b{display:block;font:500 1.5rem var(--serif);color:var(--blue)}
+.stats span{color:var(--muted);font-size:.88rem}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+.band{margin-top:3rem;padding:2.5rem 1.5rem;text-align:center;border:1px solid var(--blue);border-radius:8px;background:radial-gradient(500px 200px at 50% 0,rgba(90,169,224,.2),transparent 70%),var(--panel);box-shadow:0 0 60px var(--glow)}
+.band .lead{margin:0 auto}
+.band .btns{justify-content:center}
+
+/* muncul saat scroll */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.card.reveal.in{transition:opacity .7s,transform .3s,border-color .3s,box-shadow .3s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.btn,.btn::before,.mark::before{transition:none;animation:none}}
+ 
