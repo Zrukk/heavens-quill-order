@@ -1,14 +1,3 @@
-/* ====== UBAH BAGIAN INI ====== */
-const CONFIG = {
-  whatsapp: "6289630734293",             // format 62..., tanpa +
-  email: "heavensquill1@gmail.com",
-  mainSite: "https://situs-utamamu.com", // website baca novelmu
-  /* tarif per 1.000 kata */
-  rates: { Standar: 25000, Premium: 40000 },
-  /* kecepatan kerja: kata per hari (untuk estimasi waktu) */
-  wordsPerDay: { Standar: 5000, Premium: 3500 }
-};
-/* ============================= */
 
 const LOGO = '<svg viewBox="0 0 320 320" aria-hidden="true"><path d="M160 6 314 160 160 314 6 160Z" fill="none" stroke="#5aa9e0" stroke-opacity=".35" stroke-width="2"/><path d="M160 70 250 160 160 250 70 160Z" fill="#17507a" fill-opacity=".45" stroke="#5aa9e0" stroke-width="9"/><path d="M160 110 210 160 160 210 110 160Z" fill="none" stroke="#5aa9e0" stroke-width="7"/><path d="M160 70V250M70 160H250" stroke="#5aa9e0" stroke-opacity=".35" stroke-width="2"/><circle cx="160" cy="160" r="12" fill="none" stroke="#5aa9e0" stroke-width="6"/></svg>';
 const PAGES = [["index.html","Beranda"],["layanan.html","Layanan & Harga"],["contoh.html","Contoh"],["faq.html","FAQ"],["pesan.html","Pesan"]];
@@ -25,7 +14,7 @@ document.body.insertAdjacentHTML('afterbegin',
 document.body.insertAdjacentHTML('beforeend',
  '<footer><div class="wrap"><span>© '+new Date().getFullYear()+' Heavensquill</span><span><a href="'+CONFIG.mainSite+'">Baca novel di situs utama</a></span><span><a href="mailto:'+CONFIG.email+'">'+CONFIG.email+'</a></span></div></footer>' +
  '<button class="top" aria-label="Kembali ke atas">↑</button>' +
- (here==='pesan.html'?'':'<a class="wa" href="https://wa.me/'+CONFIG.whatsapp+'">Chat WhatsApp</a>'));
+ (here==='pesan.html'?'':'<a class="wa" href="'+CONFIG.discord+'" target="_blank" rel="noopener">Gabung Discord</a>'));
 const main = $('main'); if (main) main.id = 'main';
 
 const burger = $('.burger'), menu = $('#menu');
@@ -63,11 +52,17 @@ if (form) {
   });
   const msg = () => { const d = Object.fromEntries(new FormData(form)); return [
     'Halo Heavensquill, saya ingin memesan jasa translate novel.','',
-    'Nama: '+d.nama,'Judul novel: '+d.judul,'Bahasa: '+d.asal+' ke '+d.tujuan,
+    'Nama: '+d.nama,'Kontak: '+(d.kontak||'-'),'Judul novel: '+d.judul,'Bahasa: '+d.asal+' ke '+d.tujuan,
     'Perkiraan jumlah kata: '+(d.kata||'-'),'Paket: '+d.paket,'Tenggat: '+(d.tenggat||'-'),'Catatan: '+(d.catatan||'-')].join('\n'); };
-  form.addEventListener('submit', e => { e.preventDefault(); window.open('https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(msg()), '_blank', 'noopener'); });
+  form.addEventListener('submit', e => {
+    e.preventDefault(); sendOrder();
+    const p = navigator.clipboard ? navigator.clipboard.writeText(msg()) : Promise.reject();
+    window.open(CONFIG.discord, '_blank', 'noopener');
+    p.then(() => note.textContent = 'Pesanan terkirim dan teksnya disalin. Tempel di Discord kami agar kami bisa langsung membalas.')
+     .catch(() => note.textContent = 'Pesanan terkirim. Lanjutkan di Discord kami.');
+  });
   $('#mailbtn').onclick = () => { if (form.reportValidity()) location.href = 'mailto:'+CONFIG.email+'?subject='+encodeURIComponent('Pesanan terjemahan: '+form.elements.judul.value)+'&body='+encodeURIComponent(msg()); };
-  $('#copybtn').onclick = async () => { if (!form.reportValidity()) return; try { await navigator.clipboard.writeText(msg()); note.textContent = 'Pesan disalin.'; } catch(e){ note.textContent = 'Gagal menyalin, coba lewat WhatsApp.'; } };
+  $('#copybtn').onclick = async () => { if (!form.reportValidity()) return; try { await navigator.clipboard.writeText(msg()); note.textContent = 'Pesan disalin.'; } catch(e){ note.textContent = 'Gagal menyalin, coba lagi atau tulis manual di Discord.'; } };
   $('#clearbtn').onclick = () => { localStorage.removeItem(KEY); form.reset(); note.textContent = 'Draf dihapus.'; };
 }
 
@@ -94,5 +89,14 @@ const items = document.querySelectorAll('main h1,main h2,.stats,.card,.sample,de
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), {threshold:.12});
   items.forEach((el,i) => { el.classList.add('reveal'); el.style.transitionDelay = Math.min(i % 4, 3) * 80 + 'ms'; io.observe(el); });
-  }
-                                                                         
+}
+
+/* kirim salinan pesanan ke Google Sheet (jika CONFIG.api diisi); Discord tetap menjadi jalur percakapan */
+function sendOrder(){
+  if (!CONFIG.api) return;
+  const d = Object.fromEntries(new FormData(document.getElementById('order')));
+  try { fetch(CONFIG.api, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({action:'submit', website:d.website||'', order:d})}); } catch(e){}
+}
+
+document.querySelectorAll('[data-discord]').forEach(a => a.href = CONFIG.discord);
+    
