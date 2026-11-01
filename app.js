@@ -1,7 +1,7 @@
 /* ====== UBAH BAGIAN INI ====== */
 const CONFIG = {
-  whatsapp: "6281234567890",             // format 62..., tanpa +
-  email: "halo@contohmu.com",
+  whatsapp: "6289630734293",             // format 62..., tanpa +
+  email: "heavensquill1@gmail.com",
   mainSite: "https://situs-utamamu.com", // website baca novelmu
   /* tarif per 1.000 kata */
   rates: { Standar: 25000, Premium: 40000 },
