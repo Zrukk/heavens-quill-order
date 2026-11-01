@@ -149,4 +149,20 @@ details:hover,details[open]{border-color:var(--blue)}
 .reveal.in{opacity:1;transform:none}
 .card.reveal.in{transition:opacity .7s,transform .3s,border-color .3s,box-shadow .3s}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.btn,.btn::before,.mark::before{transition:none;animation:none}}
- 
+
+/* ===== PERBAIKAN: lebar, jarak, isi ===== */
+.wrap{max-width:1120px}
+.wrap.page{padding-left:1.25rem;padding-right:1.25rem}   /* sebelumnya tertimpa .page sehingga teks menempel ke tepi layar */
+@media(min-width:900px){.wrap.page{padding-left:2rem;padding-right:2rem}.page{padding-top:4.5rem}}
+.sec{margin-top:4.5rem}
+.sec+.lead{margin-bottom:0}
+.hero{padding-bottom:1rem;gap:3rem}
+@media(max-width:760px){.mark{width:120px}.hero{gap:1.25rem;padding-top:0}.hero h1{font-size:2.2rem}}
+.glyph{display:inline-grid;place-items:center;width:38px;height:38px;margin-bottom:.9rem;border:1px solid var(--blue);border-radius:6px;color:var(--blue);background:var(--glow);transform:rotate(45deg)}
+.glyph::before{content:"";width:10px;height:10px;border:2px solid var(--blue);transform:rotate(-45deg) rotate(45deg)}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+.chips span{padding:.45rem 1rem;border:1px solid var(--line);border-radius:99px;color:var(--muted);font-size:.92rem;background:rgba(19,27,36,.7);transition:.25s}
+.chips span:hover{border-color:var(--blue);color:var(--text);background:var(--glow)}
+body{padding-bottom:0}
+@media(max-width:720px){footer{padding-bottom:5.5rem}.wa{padding:.55rem .95rem;font-size:.85rem}}
+     
