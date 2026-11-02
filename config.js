@@ -8,6 +8,6 @@ const CONFIG = {
   /* URL Web App Google Apps Script untuk pesanan (lihat apps-script/Code.gs), kosongkan jika belum dipakai */
   api: "https://script.google.com/macros/s/AKfycbyiJbK4bWCsEUbfIwuHpX39UWz8EudKYokPdnExgNBirOvLOGRW5dlNQLHUsnienPNJ/exec",
   /* kecepatan kerja: kata per hari (untuk estimasi waktu) */
-  wordsPerDay: { Standar: 5000, Premium: 3500 }
+  wordsPerDay: { Standar: 5000, Premium: 3500 },
 };
 /* ============================= */
